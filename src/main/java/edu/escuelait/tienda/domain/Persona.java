@@ -1,5 +1,6 @@
 package edu.escuelait.tienda.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Data
@@ -9,6 +10,7 @@ public class Persona {
     private Long id;
     @NonNull
     private String name;
+    @JsonIgnore
     private String lastName;
 
 }

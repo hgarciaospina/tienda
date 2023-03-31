@@ -2,6 +2,7 @@ package edu.escuelait.tienda.controllers;
 
 import edu.escuelait.tienda.domain.Persona;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -14,7 +15,15 @@ public class PersonaRestController {
                     new Persona(2L, "Miguel"),
                     new Persona(3L,"Alvaro"))
     );
-    public Persona getPersonaById(Long id){
+
+    @GetMapping("personas/{id}")
+    public Persona getPersonaById(@PathVariable Long id){
+
+        for (Persona persona: personas) {
+            if (persona.getId().equals(id)) {
+                return persona;
+            }
+        }
         return null;
     }
     @GetMapping("/personas")
