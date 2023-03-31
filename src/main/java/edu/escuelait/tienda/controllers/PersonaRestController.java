@@ -1,6 +1,7 @@
 package edu.escuelait.tienda.controllers;
 
 import edu.escuelait.tienda.domain.Persona;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +40,13 @@ public class PersonaRestController {
         return persona;
     }
 
+    @DeleteMapping("/personas/{id}")
     public void deletePersona(Long id){
 
+        for (Persona persona: personas) {
+            if (persona.getId().equals(id)) {
+                this.personas.remove(persona);
+            }
+        }
     }
 }
