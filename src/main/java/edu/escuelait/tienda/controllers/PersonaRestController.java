@@ -41,7 +41,7 @@ public class PersonaRestController {
     }
 
     @DeleteMapping("/personas/{id}")
-    public void deletePersona(Long id){
+    public void deletePersona(@PathVariable Long id){
 
         for (Persona persona: personas) {
             if (persona.getId().equals(id)) {
