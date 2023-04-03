@@ -2,11 +2,11 @@ package edu.escuelait.tienda.controllers;
 
 import edu.escuelait.tienda.domain.Persona;
 import edu.escuelait.tienda.services.PersonasService;
-import edu.escuelait.tienda.services.PersonasServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,7 +23,7 @@ public class PersonaRestController {
 
     PersonasService personasService;
 
-    public PersonaRestController(PersonasService personasService) {
+    public PersonaRestController(@Qualifier("jugadores") PersonasService personasService) {
         this.personasService = personasService;
     }
 

@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("programadores")
 public class PersonasServiceImpl implements PersonasService{
-
     ArrayList<Persona> personas = new ArrayList<>(
             List.of(new Persona(1L, "James", "Gosling"),
                     new Persona(2L, "Linus", "Torvalds"),
