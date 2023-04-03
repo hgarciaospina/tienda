@@ -1,6 +1,10 @@
 package edu.escuelait.tienda.controllers;
 
 import edu.escuelait.tienda.domain.Persona;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,14 +15,25 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/personas")
+@Tag(name = "API Personas - ",
+    description = "CRUD Personas")
 public class PersonaRestController {
     ArrayList<Persona> personas = new ArrayList<>(
         List.of(new Persona(1L, "Rafael", "Celeste"),
                 new Persona(2L, "Miguel", "Astuias"),
                 new Persona(3L, "Alvaro", "Mejía")
         ));
+
+    @ApiResponse(responseCode = "200", description = "Operación exitosa")
+    @ApiResponse(responseCode = "400", description = "Error de petición")
+    @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
+    @Operation(summary = "Recupera una persona por Id",
+               description = "Recupera una persona dado un id de tipo númerico"
+              )
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPersonaById(@PathVariable Long id){
+    public ResponseEntity<?> getPersonaById(
+            @Parameter(description = "Id de persona. Valor entero", required = true, example = "1")
+            @PathVariable Long id){
 
         if(id < 1){
             return ResponseEntity.badRequest().build();
