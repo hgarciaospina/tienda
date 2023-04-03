@@ -10,7 +10,6 @@ public class Persona {
     private Long id;
     @NonNull
     private String name;
-    @JsonIgnore
+    @NonNull
     private String lastName;
-
 }
