@@ -1,6 +1,8 @@
 package edu.escuelait.tienda.controllers;
 
 import edu.escuelait.tienda.domain.Persona;
+import edu.escuelait.tienda.services.PersonasService;
+import edu.escuelait.tienda.services.PersonasServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,6 +20,13 @@ import java.util.List;
 @Tag(name = "API Personas - ",
     description = "CRUD Personas")
 public class PersonaRestController {
+
+    PersonasService personasService;
+
+    public PersonaRestController(PersonasService personasService) {
+        this.personasService = personasService;
+    }
+
     ArrayList<Persona> personas = new ArrayList<>(
         List.of(new Persona(1L, "Rafael", "Celeste"),
                 new Persona(2L, "Miguel", "Astuias"),
@@ -47,8 +56,10 @@ public class PersonaRestController {
         return ResponseEntity.notFound().build();
     }
     @GetMapping
-    public ResponseEntity<List<?>> listPersonas(){
-        return ResponseEntity.ok(personas);
+    public ResponseEntity<List<?>> listPersonas()
+    {
+        return ResponseEntity.ok(personasService.listAllPersonas());
+
     }
 
     @PostMapping
