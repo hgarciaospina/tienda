@@ -1,7 +1,8 @@
 package edu.escuelait.tienda.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.Data;
+import lombok.NonNull;
 
 
 @Schema(description = "Atributos de Persona")

@@ -103,4 +103,23 @@ public class PersonaRestController {
 
         return ResponseEntity.notFound().build();
     }
-}
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> modifyAtributo(@PathVariable Long id,
+                                                String attributeName, String newValue){
+
+        for (Persona persona: personas) {
+                if (persona.getId().equals(id)) {
+                    if (attributeName.equalsIgnoreCase("name")){
+                        persona.setName(newValue);
+                    } else if(attributeName.equalsIgnoreCase("lastName")){
+                        persona.setLastName(newValue);
+                    }
+
+                    return ResponseEntity.ok(persona);
+                }
+            }
+
+            return ResponseEntity.notFound().build();
+        }
+    }
