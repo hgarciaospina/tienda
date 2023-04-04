@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,14 +24,26 @@ public class PersonaRestController {
 
     PersonasService personasService;
 
-    public PersonaRestController(@Qualifier("jugadores") PersonasService personasService) {
+    public PersonaRestController(@Qualifier("jugadores") @Lazy PersonasService personasService) {
         this.personasService = personasService;
     }
 
     ArrayList<Persona> personas = new ArrayList<>(
-        List.of(new Persona(1L, "Rafael", "Celeste"),
-                new Persona(2L, "Miguel", "Astuias"),
-                new Persona(3L, "Alvaro", "Mejía")
+        List.of(new Persona(1L, "Rafael", "Heavy"),
+                new Persona(2L, "Miguel", "Fort"),
+                new Persona(3L, "Gabriel", "Light"),
+                new Persona(4L, "José", "Main"),
+                new Persona(5L, "María", "Sweet"),
+                new Persona(6L, "Juan", "Bau"),
+                new Persona(6L, "Pedro", "Stone"),
+                new Persona(7L, "Jairo", "Miracle"),
+                new Persona(8L, "Pablo", "Leal"),
+                new Persona(9L, "Richie", "C"),
+                new Persona(10L, "James", "Gosling"),
+                new Persona(11L, "Linus", "Tolvard"),
+                new Persona(12L, "Steve", "Jobs"),
+                new Persona(13L, "Bill", "Gate"),
+                new Persona(14L, "Rafael", "Benedelli")
         ));
 
     @ApiResponse(responseCode = "200", description = "Operación exitosa")
@@ -47,7 +60,7 @@ public class PersonaRestController {
         if(id < 1){
             return ResponseEntity.badRequest().build();
         }
-        for (Persona persona: personas) {
+        for (Persona persona: this.personas) {
                 if (persona.getId().equals(id)) {
                     return (ResponseEntity.ok(persona));
                 }
@@ -92,7 +105,7 @@ public class PersonaRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePersona(@PathVariable Long id){
 
-        for (Persona persona: personas) {
+        for (Persona persona: this.personas) {
             if (persona != null) {
                 if (persona.getId().equals(id)) {
                     this.personas.remove(persona);
@@ -108,7 +121,7 @@ public class PersonaRestController {
     public ResponseEntity<?> modifyAtributo(@PathVariable Long id,
                                                 String attributeName, String newValue){
 
-        for (Persona persona: personas) {
+        for (Persona persona: this.personas) {
                 if (persona.getId().equals(id)) {
                     if (attributeName.equalsIgnoreCase("name")){
                         persona.setName(newValue);
