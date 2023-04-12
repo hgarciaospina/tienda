@@ -1,12 +1,13 @@
 package edu.escuelait.tienda.controllers;
 
+import edu.escuelait.tienda.configurations.AppConfig;
 import edu.escuelait.tienda.domain.Persona;
 import edu.escuelait.tienda.services.PersonasService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +18,20 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/personas")
 @Tag(name = "API Personas - ",
     description = "CRUD Personas")
-@AllArgsConstructor
 public class PersonaRestController {
     PersonasService personasService;
+    AppConfig appConfig;
+
+    public PersonaRestController(@Qualifier("jugadores") @Lazy PersonasService personasService, AppConfig appConfig) {
+        log.info("AppConfig {}", appConfig);
+        this.personasService = personasService;
+    }
+
     ArrayList<Persona> personas = new ArrayList<>(
         List.of(new Persona(1L, "Rafael", "Heavy"),
                 new Persona(2L, "Miguel", "Fort"),
@@ -41,7 +49,6 @@ public class PersonaRestController {
                 new Persona(13L, "Bill", "Gate"),
                 new Persona(14L, "Rafael", "Benedelli")
         ));
-
     @ApiResponse(responseCode = "200", description = "Operación exitosa")
     @ApiResponse(responseCode = "400", description = "Error de petición")
     @ApiResponse(responseCode = "404", description = "Recurso no encontrado")
@@ -112,7 +119,6 @@ public class PersonaRestController {
 
         return ResponseEntity.notFound().build();
     }
-
     @PatchMapping("/{id}")
     public ResponseEntity<?> modifyAtributo(@PathVariable Long id,
                                                 String attributeName, String newValue){
