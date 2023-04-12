@@ -2,6 +2,7 @@ package edu.escuelait.tienda.services;
 
 import edu.escuelait.tienda.domain.Persona;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Slf4j
 @Lazy
 @Service("jugadores")
+@ConditionalOnProperty(prefix = "implementacion", value = "personas", havingValue = "jugadores")
 public class PersonasServiceJugadoresImpl implements PersonasService{
 
     ArrayList<Persona> jugadores = new ArrayList<>(

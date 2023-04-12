@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,9 @@ import java.util.List;
 @RequestMapping("/personas")
 @Tag(name = "API Personas - ",
     description = "CRUD Personas")
+@AllArgsConstructor
 public class PersonaRestController {
-
     PersonasService personasService;
-
-    public PersonaRestController(@Qualifier("jugadores") @Lazy PersonasService personasService) {
-        this.personasService = personasService;
-    }
-
     ArrayList<Persona> personas = new ArrayList<>(
         List.of(new Persona(1L, "Rafael", "Heavy"),
                 new Persona(2L, "Miguel", "Fort"),
