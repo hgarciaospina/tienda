@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     private String name;
     private String description;
-    private String languaje;
+    private String language;
     private String version;
 }
