@@ -1,6 +1,7 @@
 package edu.escuelait.tienda.controllers;
 
 import edu.escuelait.tienda.configurations.AppConfig;
+import edu.escuelait.tienda.configurations.TiendaParametersConfig;
 import edu.escuelait.tienda.domain.Persona;
 import edu.escuelait.tienda.services.PersonasService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,9 +27,15 @@ import java.util.List;
 public class PersonaRestController {
     PersonasService personasService;
     AppConfig appConfig;
+    TiendaParametersConfig tiendaParametersConfig;
 
-    public PersonaRestController(@Qualifier("jugadores") @Lazy PersonasService personasService, AppConfig appConfig) {
+    public PersonaRestController(
+            @Qualifier("jugadores")
+            @Lazy PersonasService personasService,
+            AppConfig appConfig,
+            TiendaParametersConfig tiendaParametersConfig) {
         log.info("AppConfig {}", appConfig);
+        log.info("TiendaParametersConfig {}", tiendaParametersConfig);
         this.personasService = personasService;
     }
 
